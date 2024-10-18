@@ -9,8 +9,7 @@ Login to sherlock: Open Terminal (Mac) or Windows Powershell (Windows) and input
 ```
 ssh <sunetid>@login.sherlock.stanford.edu
 ```
-RELION 5 beta requires Anaconda installation for its new machine learning algorithims. This will exceed 15GB, so it is recommended you install these packages on your GROUP_HOME.
-
+For this installation, you will be installing files on both your user folder and files in your lab's group home. Commands to navigate these directories are below.
 
 Access your lab group's ($GROUP_HOME) directory:
 ```
@@ -28,12 +27,21 @@ or simply execute:
 ```
 cd
 ```
+To check which directory you are in currently, execute:
+```
+pwd
+```
+
+Note that the dollar sign ('$') in front of GROUP_HOME in
+
 
 ## Edit your .bashrc file
 This is a file that runs any commands you input everytime you login to Sherlock. For RELION, we will want to have several modules loaded before running. Having these commands in our .bashrc will eliminate the need for you to have run each command yourself in the ocmmand line manually everytime you restart Sherlock.
 
 To edit:
+```
 vim .bashrc
+```
 
 This will place you in the text editing interface. Press "i" to insert text. Use arrow keys to navigate to bottom of this file. CMD+C (Mac) or CTRL+C (Windows) to copy, then CMD+V (Mac) or right click (Windows) to paste.
 
@@ -184,7 +192,7 @@ RELION is now installed! The last steps are to install two external programs.
 ### Installing CTFFIND and MotionCor2
 CTF estimation is not a part of RELION. Install it separately here: https://grigoriefflab.umassmed.edu/ctf_estimation_ctffind_ctftilt
 
-For MotionCor2, install it here:
+For MotionCor2, install it here: https://emcore.ucsf.edu/ucsf-software
 
 Now, both files will be where your downloads, i.e: your downloads folder. We will need to transfer these to your Sherlock user directory so we can link them to RELION.
 
@@ -229,15 +237,18 @@ ln ctffind /home/users/<sunetid>/ctffind
 With both packages installed on Sherlock with easier directory pointers it will be much easier to point to these when RELION is open.
 
 ## Opening and running RELION
+Always open RELION in a parent directory that has a directory containing your micrographs. For example, if you have a folder in your $GROUP_SCRATCH with your experiment, you would go to it:
 
-### Troubleshooting
-If Torch stuff installs into your own user folder, it will most likely end up in the hidden .cache directory. To delete this:
 ```
-cd
-rm -rf .cache
+cd $GROUP_SCRATCH
+cd <folder_with_experiment>
 ```
 
+Inside this folder, there should be a folder that contains all of your micrographs. Now, start RELION by executing:
 
+```
+relion
+```
 
 ## Create slurm job submission file
 This is the file that indicates how many resources you will request when submitting to Sherlock.
@@ -270,6 +281,12 @@ mpirun -n XXXmpinodesXXX XXXcommandXXX
 EOF
 ```
 
+### Troubleshooting
+If Torch stuff installs into your own user folder, it will most likely end up in the hidden .cache directory. To delete this:
+```
+cd
+rm -rf .cache
+```
 
 ### Helpful Unix commands
 Check history of commands you have run:
